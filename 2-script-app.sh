@@ -7,6 +7,8 @@ chmod 400 /home/robot-automation/.ssh/authorized_keys
 chown -R robot-automation:robot-automation /home/robot-automation/.ssh
 
 cp -r files/docker-apps/nginx /opt/
+mkdir -p /opt/nginx/config/extra
+chown -R robot-automation /opt/nginx/config/extra
 
 while read line
 do

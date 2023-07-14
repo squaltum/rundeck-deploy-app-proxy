@@ -17,3 +17,14 @@ For Docker Server
 5. Edit VARS file
 6. run "sh 0-script-prepare-docker.sh"
 7. run "sh 2-script-app.sh"
+
+Step to do in Rundeck UI
+1. Create Project Name "Docker-Apps"
+2. Go to Project "Docker-Apps" and Create Key storage as privatekey from "files/rundeck/private.key" as name "keys/project/Docker-Apps/priv.key" 
+3. ssh to Rundeck Server
+4. cd /opt/rundeck-deploy-app-proxy/
+5. Add node to rundeck example NodeName: docker01, NodeIP: 111.222.233.1 run example below
+    - sh 3-add-node-rundeck.sh docker01 111.222.233.1 
+6. Import 3 jobs from files/rundeck/*.xml
+7. Edit Nodes of each jobs
+

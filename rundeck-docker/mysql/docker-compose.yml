@@ -16,6 +16,10 @@ services:
             RUNDECK_SERVER_FORWARDED: 'true'
         volumes:
           - ${RUNDECK_LICENSE_FILE:-/dev/null}:/home/rundeck/etc/rundeckpro-license.key
+          - /opt/rundeck-docker/core-config/admin.aclpolicy:/home/rundeck/etc/admin.aclpolicy:z,ro
+          - /opt/rundeck-docker/core-config/realm.properties:/home/rundeck/server/config/realm.properties:z
+          - /opt/rundeck-docker/rundeck-projects:/home/rundeck/projects:z
+          - /opt/rundeck-docker/rundeck-plugins:/home/rundeck/libext:z
         ports:
           - 4440:4440
     mysql:

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+useradd robot-automation
+mkdir -p /home/robot-automation/.ssh/
+cat files/rundeck/public-key /home/robot-automation/.ssh/authorized_keys
+chmod 400 /home/robot-automation/.ssh/authorized_keys
+chown -R robot-automation:robot-automation /home/robot-automation/.ssh
+
 cp -r files/docker-apps/nginx /opt/
 
 while read line

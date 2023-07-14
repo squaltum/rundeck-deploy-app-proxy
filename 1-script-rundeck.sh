@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cp -rp rundeck-docker /opt/
+chown -R 1000 /opt/rundeck-docker/rundeck-plugins
 
 while read line
 do

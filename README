@@ -5,7 +5,7 @@ For Rundeck SERVER
 2. cd /opt/
 3. run "git clone https://github.com/squaltum/rundeck-deploy-app-proxy.git"
 4. cd rundeck-deploy-app-proxy/
-5. Edit VARS file
+5. Edit VARS file at "RUNDECKURL"
 6. run "sh 0-script-prepare-docker.sh"
 7. run "sh 1-script-rundeck.sh"
 
@@ -14,7 +14,7 @@ For Docker Server
 2. cd /opt/
 3. run "git clone https://github.com/squaltum/rundeck-deploy-app-proxy.git"
 4. cd rundeck-deploy-app-proxy/
-5. Edit VARS file
+5. Edit VARS file at "DOCKERURL"
 6. run "sh 0-script-prepare-docker.sh"
 7. run "sh 2-script-app.sh"
 

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 cp -rp rundeck-docker /opt/
-chown -R 1000 /opt/rundeck-docker/rundeck-plugins
 
 while read line
 do
@@ -17,5 +16,6 @@ done < VARS
 
 cd /opt/rundeck-docker/mysql/
 docker-compose up -d
+chown -R 1000 /opt/rundeck-docker/rundeck-plugins
 
 exit 0

@@ -5,7 +5,7 @@ cp -rp rundeck-docker /opt/
 while read line
 do
 	RUNDECKVAR=$( echo ${line} |gawk -F"=" '{ print $1 }' )
-	if [[ ${RUNDECKVAR} == "RUNDECKURL" ]];
+	if [ "${RUNDECKVAR}" = "RUNDECKURL" ]; 
 	then
 		RUNDECKVAR=$( echo ${line} |gawk -F"=" '{ print $2 }' )
 		sed -i "s/RUNDECKURL/${RUNDECKVAR}/g" /opt/rundeck-docker/mysql/docker-compose.yml

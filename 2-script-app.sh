@@ -11,7 +11,7 @@ cp -r files/docker-apps/nginx /opt/
 while read line
 do
 	DOCKERVAR=$( echo ${line} |gawk -F"=" '{ print $1 }' )
-	if [[ ${DOCKERVAR} == "DOCKERURL" ]];
+	if [ ${DOCKERVAR} = "DOCKERURL" ];
 	then
 		DOCKERVAR=$( echo ${line} |gawk -F"=" '{ print $2 }' )
 		sed -i "s/DOCKERURL/${DOCKERVAR}/g" /opt/nginx/config/nginx.conf

@@ -36,6 +36,6 @@ If Add another nodes
 3. cd /opt/rundeck-deploy-app-proxy/
 4. Add node to rundeck example NodeName: docker01, NodeIP: 111.222.233.1 run example below
     - sh 3-add-node-rundeck.sh docker01 111.222.233.1
-5. Import 3 jobs from files/rundeck/*.xml for new node name
+5. Import 3 jobs from files/rundeck/*.xml for new node name OR duplicate 3 jobs for new
 6. Edit Nodes of each jobs
 7. Edit workflow of Job "Create new app" at IP and expose URL

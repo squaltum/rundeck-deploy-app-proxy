@@ -26,6 +26,16 @@ Step to do in Rundeck UI
 5. Add node to rundeck example NodeName: docker01, NodeIP: 111.222.233.1 run example below
     - sh 3-add-node-rundeck.sh docker01 111.222.233.1 
 6. Back to Rundeck UI -> go to Project -> Edit Nodes -> Add a new Node Source -> Directory -> "/home/rundeck/projects/Project1/etc/"
-6. Import 3 jobs from files/rundeck/*.xml
-7. Edit Nodes of each jobs
-8. Edit workflow of Job "Create new app" at IP
+7. Import 3 jobs from files/rundeck/*.xml
+8. Edit Nodes of each jobs
+9. Edit workflow of Job "Create new app" at IP and expose URL
+
+If Add another nodes
+1. Complete Docker Server step
+2. ssh to Rundeck Server
+3. cd /opt/rundeck-deploy-app-proxy/
+4. Add node to rundeck example NodeName: docker01, NodeIP: 111.222.233.1 run example below
+    - sh 3-add-node-rundeck.sh docker01 111.222.233.1
+5. Import 3 jobs from files/rundeck/*.xml for new node name
+6. Edit Nodes of each jobs
+7. Edit workflow of Job "Create new app" at IP and expose URL

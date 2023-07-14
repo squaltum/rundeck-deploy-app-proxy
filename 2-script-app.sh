@@ -7,6 +7,7 @@ chmod 400 /home/robot-automation/.ssh/authorized_keys
 chown -R robot-automation:robot-automation /home/robot-automation/.ssh
 echo "PubkeyAcceptedKeyTypes +ssh-rsa" >> /etc/ssh/sshd_config
 systemctl restart ssh
+echo "robot-automation	ALL=(ALL)	NOPASSWD: ALL" >> /etc/sudoers
 
 cp -r files/docker-apps/nginx /opt/
 mkdir -p /opt/nginx/config/extra

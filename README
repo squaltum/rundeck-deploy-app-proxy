@@ -28,4 +28,4 @@ Step to do in Rundeck UI
 6. Back to Rundeck UI -> go to Project -> Edit Nodes -> Add a new Node Source -> Directory -> "/home/rundeck/projects/Project1/etc/"
 6. Import 3 jobs from files/rundeck/*.xml
 7. Edit Nodes of each jobs
-
+8. Edit workflow of Job "Create new app" at IP

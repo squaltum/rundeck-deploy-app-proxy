@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    nginx-ssl:
+        container_name: rundeck-ssl
+        image: tumsqual/nginx-ssl:latest
+        restart: always
+        ports:
+          - 80:80
+          - 443:443
+        volumes:
+          - /opt/nginx/config:/etc/nginx/conf.d
+          - /opt/nginx/ssl:/etc/nginx/certs
+          - /var/run/docker.sock:/tmp/docker.sock:ro

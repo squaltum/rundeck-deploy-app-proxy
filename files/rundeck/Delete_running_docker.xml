@@ -1,0 +1,49 @@
+<joblist>
+  <job>
+    <context>
+      <options preserveOrder='true'>
+        <option name='DockerID' required='true'>
+          <label>Docker ID</label>
+        </option>
+      </options>
+    </context>
+    <defaultTab>nodes</defaultTab>
+    <description></description>
+    <dispatch>
+      <excludePrecedence>true</excludePrecedence>
+      <keepgoing>false</keepgoing>
+      <rankOrder>ascending</rankOrder>
+      <successOnEmptyNodeFilter>false</successOnEmptyNodeFilter>
+      <threadcount>1</threadcount>
+    </dispatch>
+    <executionEnabled>true</executionEnabled>
+    <id>c8aad973-7a2c-4fb2-92fb-e1dbfc392e8d</id>
+    <loglevel>INFO</loglevel>
+    <name>Delete running docker</name>
+    <nodeFilterEditable>false</nodeFilterEditable>
+    <nodefilters>
+      <filter>name: docker02 </filter>
+    </nodefilters>
+    <nodesSelectedByDefault>true</nodesSelectedByDefault>
+    <plugins />
+    <scheduleEnabled>true</scheduleEnabled>
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <script><![CDATA[#!/bin/bash
+CID="$1"
+
+DCNAME=$( sudo docker inspect ${CID} |grep "Name\":" |head -1 |gawk -F"/" '{ print $2 }' |gawk -F'"' '{ print $1 }' )
+
+sudo rm -rf /opt/nginx/config/extra/${DCNAME}.conf
+
+sudo docker stop ${CID} 1>/dev/null
+sudo docker rm ${CID} 1>/dev/null
+sudo /usr/local/bin/docker-compose -f /opt/nginx/docker-compose.yaml restart nginx-ssl
+
+echo "Already delete docker id: ${CID}"]]></script>
+        <scriptargs>${option.DockerID}</scriptargs>
+      </command>
+    </sequence>
+    <uuid>c8aad973-7a2c-4fb2-92fb-e1dbfc392e8d</uuid>
+  </job>
+</joblist>

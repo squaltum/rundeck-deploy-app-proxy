@@ -7,8 +7,13 @@ For Rundeck SERVER
 4. cd rundeck-deploy-app-proxy/
 5. Edit VARS file
 6. run "sh 0-script-prepare-docker.sh"
-7. run "sh 1-script-prepare-rundeck.sh"
-8. cd /opt/rundeck-docker-mysql/
-9. run "docker-compose up -d" 
-- 
-- 
+7. run "sh 1-script-rundeck.sh"
+
+For Docker Server
+1. ssh to server that plan to run docker-apps as root user 
+2. cd /opt/
+3. run "git clone https://github.com/squaltum/rundeck-deploy-app-proxy.git"
+4. cd rundeck-deploy-app-proxy/
+5. Edit VARS file
+6. run "sh 0-script-prepare-docker.sh"
+7. run "sh 2-script-app.sh"

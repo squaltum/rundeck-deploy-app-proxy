@@ -1,0 +1,107 @@
+<joblist>
+  <job>
+    <context>
+      <options preserveOrder='true'>
+        <option name='CONTNAME' required='true'>
+          <label>App Name</label>
+        </option>
+        <option name='INPORT' required='true' value='80'>
+          <label>APP Port</label>
+        </option>
+        <option name='Proxy' required='true' values='set1,set2,set3,set4,set5,set6' valuesListDelimiter=','>
+          <label>Select Proxy</label>
+        </option>
+        <option name='VAR1'>
+          <label>VAR1</label>
+        </option>
+        <option name='VAR2'>
+          <label>VAR2</label>
+        </option>
+        <option name='VAR3'>
+          <label>VAR3</label>
+        </option>
+      </options>
+    </context>
+    <defaultTab>nodes</defaultTab>
+    <description></description>
+    <dispatch>
+      <excludePrecedence>true</excludePrecedence>
+      <keepgoing>false</keepgoing>
+      <rankOrder>ascending</rankOrder>
+      <successOnEmptyNodeFilter>false</successOnEmptyNodeFilter>
+      <threadcount>1</threadcount>
+    </dispatch>
+    <executionEnabled>true</executionEnabled>
+    <id>8bb02d00-0920-4f5f-af0f-e82e165e8e78</id>
+    <loglevel>INFO</loglevel>
+    <name>Create new app</name>
+    <nodeFilterEditable>false</nodeFilterEditable>
+    <nodefilters>
+      <filter>name: docker02 </filter>
+    </nodefilters>
+    <nodesSelectedByDefault>true</nodesSelectedByDefault>
+    <plugins />
+    <scheduleEnabled>true</scheduleEnabled>
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <script><![CDATA[#!/bin/bash
+
+PROXY="$1"
+CONTNAME="$2"
+INPORT="$3"
+VAR1="$4"
+VAR2="$5"
+VAR3="$6"
+
+if [ "$1" = "set1" ];
+then
+    PROXY="packanony:rWVpR5scof@191.101.184.70:50100/"
+fi
+if [ "$1" = "set2" ];
+then
+    PROXY="packanony:rWVpR5scof@203.78.130.82:50100/"
+fi
+if [ "$1" = "set3" ];
+then
+    PROXY="packanony:rWVpR5scof@203.78.130.87:50100/"
+fi
+if [ "$1" = "set4" ];
+then
+    PROXY="packanony:rWVpR5scof@203.78.130.87:50100/"
+fi
+if [ "$1" = "set5" ];
+then
+    PROXY="packanony:rWVpR5scof@203.78.130.87:50100/"
+fi
+#echo "${PROXY}"
+
+sudo docker run -d -t -i -e HTTP_PROXY="http://$PROXY" \
+                         -e HTTPS_PROXY="http://$PROXY" \
+                         -e VARIABLE1="${VAR1}" \
+                         -e VARIABLE2="${VAR2}" \
+                         -e VARIABLE3="${VAR3}" \
+                         --name ${CONTNAME} -d -p ${INPORT}:3000 tumsqual/nodetest:latest 1>/dev/null
+                         
+sudo echo "" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "    location /${CONTNAME}/ {" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "        proxy_pass http://167.172.66.5:${INPORT}/;" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "        proxy_set_header X-Real-IP         \$remote_addr;" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "        proxy_set_header X-Forwarded-For   \$proxy_add_x_forwarded_for;" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "        proxy_set_header X-Forwarded-Proto \$scheme;" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "        proxy_set_header X-Forwarded-Host  \$host;" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "        proxy_set_header X-Forwarded-Port  \$server_port;" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "    }" >> /opt/nginx/config/extra/${CONTNAME}.conf
+sudo echo "" >> /opt/nginx/config/extra/${CONTNAME}.conf
+
+sudo /usr/local/bin/docker-compose -f /opt/nginx/docker-compose.yaml restart nginx-ssl
+        
+echo "https://DOCKERURL/${CONTNAME}/" 
+
+#exit 0
+]]></script>
+        <scriptargs>${option.Proxy} ${option.CONTNAME} ${option.INPORT} ${option.VAR1} ${option.VAR2} ${option.VAR3}</scriptargs>
+      </command>
+    </sequence>
+    <uuid>8bb02d00-0920-4f5f-af0f-e82e165e8e78</uuid>
+  </job>
+</joblist>

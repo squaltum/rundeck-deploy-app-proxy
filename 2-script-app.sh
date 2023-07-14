@@ -5,6 +5,8 @@ mkdir -p /home/robot-automation/.ssh/
 cat files/rundeck/public-key > /home/robot-automation/.ssh/authorized_keys
 chmod 400 /home/robot-automation/.ssh/authorized_keys
 chown -R robot-automation:robot-automation /home/robot-automation/.ssh
+echo "PubkeyAcceptedKeyTypes +ssh-rsa" >> /etc/ssh/sshd_config
+systemctl restart ssh
 
 cp -r files/docker-apps/nginx /opt/
 mkdir -p /opt/nginx/config/extra
@@ -23,3 +25,5 @@ done < VARS
 
 cd /opt/nginx/
 docker-compose up -d
+
+exit 0
